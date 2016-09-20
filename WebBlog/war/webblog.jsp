@@ -12,9 +12,15 @@
 
   <head>
    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+   <title>YK16</title>
  </head>
  
-  <body>
+ 
+  <body background="/images/album.png">
+  
+  
+<p><h3>YEEZY SEASON</h3></p>
+
 
 <%
 
@@ -45,14 +51,16 @@
 <%
 
     } else {
+    	 	
+    	
 
 %>
 
-<p>Hello!
+<p>Hello! Please
 
-<a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
+<a href="<%= userService.createLoginURL(request.getRequestURI()) %>">sign in</a>
 
-to include your name with your comment.</p>
+to leave a comment.</p>
 
 <%
 
@@ -82,7 +90,7 @@ Collections.sort(comments);
 
         %>
 
-        <p>Messages in WebBlog '${fn:escapeXml(webblogName)}'.</p>
+        <p>Comments on Yeezus '${fn:escapeXml(webblogName)}'.</p>
 
         <%
 
