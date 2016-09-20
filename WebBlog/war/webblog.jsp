@@ -1,32 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Collections" %>
+<%@ page import="webblog.Comment" %>
+<%@ page import="com.googlecode.objectify.*" %>
 <%@ page import="com.google.appengine.api.users.User" %>
 <%@ page import="com.google.appengine.api.users.UserService" %>
 <%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
-<%@ page import="com.google.appengine.api.datastore.DatastoreServiceFactory" %>
-<%@ page import="com.google.appengine.api.datastore.DatastoreService" %>
-<%@ page import="com.google.appengine.api.datastore.Query" %>
-<%@ page import="com.google.appengine.api.datastore.Entity" %>
-<%@ page import="com.google.appengine.api.datastore.FetchOptions" %>
-<%@ page import="com.google.appengine.api.datastore.Key" %>
-<%@ page import="com.google.appengine.api.datastore.KeyFactory" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
- 
 
 <html>
 
   <head>
-
    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
-
-  </head>
-
+ </head>
  
-
   <body>
-
- 
 
 <%
 
@@ -34,7 +22,7 @@
 
     if (webblogName == null) {
 
-        webblogName = "default";
+    	webblogName = "default";
 
     }
 
@@ -50,7 +38,7 @@
 
 %>
 
-<p>Hello! ${fn:escapeXml(user.nickname)}! (You can
+<p>Hello, ${fn:escapeXml(user.nickname)}! (You can
 
 <a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">sign out</a>.)</p>
 
@@ -60,7 +48,7 @@
 
 %>
 
-<p>Hi!
+<p>Hello!
 
 <a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
 
@@ -76,17 +64,11 @@ to include your name with your comment.</p>
 
 <%
 
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+ObjectifyService.register(Comment.class);
 
-    Key webblogKey = KeyFactory.createKey("WebBlog", webblogName);
+List<Comment> comments = ObjectifyService.ofy().load().type(Comment.class).list();   
 
-    // Run an ancestor query to ensure we see the most up-to-date
-
-    // view of the comments belonging to the selected webblog.
-
-    Query query = new Query("Comment", webblogKey).addSort("date", Query.SortDirection.DESCENDING);
-
-    List<Entity> comments = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(5));
+Collections.sort(comments); 
 
     if (comments.isEmpty()) {
 
@@ -104,13 +86,13 @@ to include your name with your comment.</p>
 
         <%
 
-        for (Entity comment : comments) {
+        for (Comment comment : comments) {
 
             pageContext.setAttribute("comment_content",
 
-                                     comment.getProperty("content"));
+                                     comment.getContent());
 
-            if (comment.getProperty("user") == null) {
+            if (comment.getUser() == null) {
 
                 %>
 
@@ -122,7 +104,7 @@ to include your name with your comment.</p>
 
                 pageContext.setAttribute("comment_user",
 
-                                         comment.getProperty("user"));
+                                         comment.getUser());
 
                 %>
 
