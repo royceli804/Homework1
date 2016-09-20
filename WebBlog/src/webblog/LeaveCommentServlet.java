@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
 
+import webblog.Comment;
+
  
 
 
@@ -46,7 +48,7 @@ static {
         
         Comment comment = new Comment(user, content);
         
-        ofy().load().entity(comment).get();
+        //ofy().load().entity(comment).get();
         
         ofy().save().entity(comment).now();
         
