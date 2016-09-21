@@ -21,32 +21,33 @@ public class Comment implements Comparable<Comment> {
     User user;
 
     String content;
+    
+    String title;
 
     Date date;
 
     private Comment() {}
 
-    public Comment(User user, String content) {
-
+    public Comment(User user, String content, String title) {
         this.user = user;
-
-        this.content = content;
-
-        date = new Date();
+        this.content = content;        
+        this.title = title;
+       date = new Date();
 
     }
-
+    
     public User getUser() {
-
         return user;
-
     }
 
     public String getContent() {
-
         return content;
-
     }
+    
+    public String getTitle(){
+    	return title;
+    }
+    
 
     @Override
 

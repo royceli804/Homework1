@@ -103,9 +103,14 @@ Collections.sort(comments);
 
         for (Comment comment : comments) {
 
+        	pageContext.setAttribute("comment_title",
+
+                      comment.getTitle());
+        	
             pageContext.setAttribute("comment_content",
 
-                                     comment.getContent());
+                      comment.getContent());
+            
 
             if (comment.getUser() == null) {
 
@@ -128,20 +133,30 @@ Collections.sort(comments);
                 <%
             }%>
 
-            <blockquote align = right>${fn:escapeXml(comment_content)}</blockquote>
+			<blockquote align = right>Title: ${fn:escapeXml(comment_title)}</blockquote>
+            <blockquote align = right>Comment: ${fn:escapeXml(comment_content)}</blockquote>
 
             <%
 
         }%>
 
 	<% if (user != null) {%>
-	<form align = "right" action="/sign" method="post">
 
-          <div><textarea name="content" rows="3" cols="60"></textarea></div>
+	
+	
+	<form action="/sign" method="post">
+	
+		<fieldset style="width:0px"><legend><h>Blog Post:</h></legend>
+			
+		  <div><textarea name="title" rows="1" cols="60">Title</textarea></div><br>
+
+          <div><textarea name="content" rows="3" cols="60" >enter comment here</textarea></div>
 
           <div><input type="submit" value="Submit Comment" /></div>
 
           <input type="hidden" name="webblogName" value="${fn:escapeXml(webblogName)}"/>
+          
+          </fieldset>
 
 	</form>
 	<%} %>

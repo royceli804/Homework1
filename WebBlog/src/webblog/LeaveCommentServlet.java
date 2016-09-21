@@ -45,8 +45,10 @@ static {
         User user = userService.getCurrentUser();
 
         String content = req.getParameter("content");
-        
-        Comment comment = new Comment(user, content);
+ 
+        String title = req.getParameter("title");
+        		
+        Comment comment = new Comment(user, content, title);
         
         //ofy().load().entity(comment).get();
         
