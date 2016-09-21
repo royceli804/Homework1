@@ -23,8 +23,20 @@ version="2.5">
         <servlet-name>sign</servlet-name>
         <url-pattern>/sign</url-pattern>
 
+        
+        
     </servlet-mapping>
-	
+		 <servlet>
+        <servlet-name>allposts</servlet-name>
+        <servlet-class>webblog.WebBlogServlet</servlet-class>
+    </servlet>
+    
+        <servlet-mapping>
+        <servlet-name>allposts</servlet-name>
+        <url-pattern>/allposts</url-pattern>
+
+    </servlet-mapping>
+    
     <servlet>
 <servlet-name>CronJobServlet</servlet-name>
 <servlet-class>webblog.CronJobServlet</servlet-class>
@@ -34,6 +46,18 @@ version="2.5">
 <url-pattern>/weeklydigest</url-pattern>
 </servlet-mapping>
     
+
+ 
+		 <servlet>
+        <servlet-name>subscribe</servlet-name>
+        <servlet-class>webblog.SubscribeServlet</servlet-class>
+    </servlet>
+    
+        <servlet-mapping>
+        <servlet-name>subscribe</servlet-name>
+        <url-pattern>/subscribe</url-pattern>
+
+ 	   </servlet-mapping>
     
     <welcome-file-list>
 		<welcome-file>webblog.jsp</welcome-file>

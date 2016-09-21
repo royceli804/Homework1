@@ -47,8 +47,12 @@ public class Comment implements Comparable<Comment> {
     public String getTitle(){
     	return title;
     }
-    
 
+    public Date getToday(){
+    	return date;
+    }
+
+    
     @Override
 
     public int compareTo(Comment other) {

@@ -51,9 +51,7 @@ User user = userService.getCurrentUser();%>
 
 %>
 
-<p align = right>Hello, ${fn:escapeXml(user.nickname)}! (You can
 
-<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">sign out</a>.)</p>
 
 <%
 
@@ -63,12 +61,6 @@ User user = userService.getCurrentUser();%>
 
 %>
 
-<p align = right>Welcome to the one and only, Kanye West's Blog Page.</p>
-
-
-<p align = right>Please <a href="<%= userService.createLoginURL(request.getRequestURI()) %>">sign in</a>
-
-if you would like to leave your 2 cents.</p>
 
 <%
 
@@ -90,7 +82,7 @@ Collections.sort(comments);
 
         %>
 
-        <p align = right>${fn:escapeXml(webblogName)} has no messages.</p>
+        <p align = center>${fn:escapeXml(webblogName)} has no messages.</p>
 
         <%
 
@@ -98,15 +90,13 @@ Collections.sort(comments);
 
         %>
 
-        <p align = right>Comments on ${fn:escapeXml(webblogName)}.</p>
+        <p><h3 align = "center">The Greatest Posts of All Time</h3></p>
 
         <%
 
-        for (int i=((comments.size()-1)); i>(comments.size()-5); i--) {
+        for (int i = (comments.size()-1); i>=0; i--) {
         	
         	Comment comment = comments.get(i);
-        
-        	//Comment comment = comments.get(i);
 
         	pageContext.setAttribute("comment_title",
 
@@ -116,16 +106,16 @@ Collections.sort(comments);
 
                       comment.getContent());
             
-            
             pageContext.setAttribute("comment_date",
 
-                      comment.getToday());
-                     
+                    comment.getToday());
+            
+
             if (comment.getUser() == null) {
 
                 %>
 
-               <p align = right>An anonymous person wrote:</p>
+               <p align = center>An anonymous person wrote:</p>
 
                 <%
 
@@ -137,38 +127,15 @@ Collections.sort(comments);
 
                 %>
 
-                <p align = right><b>${fn:escapeXml(comment_user.nickname)}</b> wrote:</p>
-                <blockquote align = right>Title: ${fn:escapeXml(comment_title)}</blockquote>
-                <blockquote align = right>Sent on: ${fn:escapeXml(comment_date)}</blockquote>
-            	<blockquote align = right>Comment: ${fn:escapeXml(comment_content)}</blockquote>
-            	
+                <p align = center><b>${fn:escapeXml(comment_user.nickname)}</b> wrote:</p>
+                <blockquote align = center>Title: ${fn:escapeXml(comment_title)}</blockquote>
+                <blockquote align = center>Sent on: ${fn:escapeXml(comment_date)}</blockquote>
+            	<blockquote align = center>Comment: ${fn:escapeXml(comment_content)}</blockquote>
 
                 <%
             }
 
         }%>
-
-	<% if (user != null) {%>
-
-	
-	
-	<form action="/sign" method="post">
-	
-		<fieldset style="width:0px"><legend><h>Blog Post:</h></legend>
-			
-		  <div><textarea name="title" rows="1" cols="60">Title</textarea></div><br>
-
-          <div><textarea name="content" rows="3" cols="60" >enter comment here</textarea></div>
-
-          <div><input type="submit" value="Submit Comment" /></div>
-
-          <input type="hidden" name="webblogName" value="${fn:escapeXml(webblogName)}"/>
-          
-          </fieldset>
-
-	</form>
-	<%} %>
-
 
         <%
     }
@@ -177,10 +144,7 @@ Collections.sort(comments);
     
 %>
 
- 
 
- 
- 
  
 
   </body>
