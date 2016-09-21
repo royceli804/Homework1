@@ -6,7 +6,7 @@ import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 
 import com.google.appengine.api.users.UserServiceFactory;
-
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
@@ -14,6 +14,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 import java.io.IOException;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServlet;
 
@@ -50,12 +51,13 @@ static {
         		
         Comment comment = new Comment(user, content, title);
         
-        //ofy().load().entity(comment).get();
+        
         
         ofy().save().entity(comment).now();
         
- 
+        //ofy().load().entity(comment).get();
 
+        
         resp.sendRedirect("/webblog.jsp?webblogName=");
         
 

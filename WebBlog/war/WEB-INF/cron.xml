@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+  <cron>
+    <url>/weeklydigest</url>
+    <target>beta</target>
+    <description>new posts alert</description>
+    <timezone>America/Chicago</timezone>
+    <schedule>every day 17:00</schedule>
+  </cron>
+</cronentries>

@@ -81,7 +81,7 @@ if you would like to leave your 2 cents.</p>
 
 ObjectifyService.register(Comment.class);
 
-List<Comment> comments = ObjectifyService.ofy().load().type(Comment.class).list();   
+List<Comment> comments = ObjectifyService.ofy().load().type(Comment.class).list();
 
 Collections.sort(comments); 
 
@@ -101,7 +101,9 @@ Collections.sort(comments);
 
         <%
 
-        for (Comment comment : comments) {
+        for (Comment comment: comments) {
+        
+        	//Comment comment = comments.get(i);
 
         	pageContext.setAttribute("comment_title",
 
@@ -129,14 +131,11 @@ Collections.sort(comments);
                 %>
 
                 <p align = right><b>${fn:escapeXml(comment_user.nickname)}</b> wrote:</p>
+                <blockquote align = right>Title: ${fn:escapeXml(comment_title)}</blockquote>
+            	<blockquote align = right>Comment: ${fn:escapeXml(comment_content)}</blockquote>
 
                 <%
-            }%>
-
-			<blockquote align = right>Title: ${fn:escapeXml(comment_title)}</blockquote>
-            <blockquote align = right>Comment: ${fn:escapeXml(comment_content)}</blockquote>
-
-            <%
+            }
 
         }%>
 
