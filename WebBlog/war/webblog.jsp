@@ -16,11 +16,20 @@
  </head>
  
  
-  <body background="/images/album.png">
+  <body background="/images/background1.jpg">
   
-  
-<p><h3>YEEZY SEASON</h3></p>
+<% UserService userService = UserServiceFactory.getUserService();
 
+User user = userService.getCurrentUser();%>
+      
+<p><h3 align = center><img src="/images/web_banner.jpg" alt="Kanye West">
+</h3></p>
+<p><h3><ul>
+  <li><a href="default.asp">Home</a></li>
+  <li><a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Login</a></li>
+  <li><a href="http://www.kanyewest.com/">Music</a></li>
+  <li><a href="about.asp">Subscribe</a></li>
+</ul></h3></p>
 
 <%
 
@@ -34,9 +43,6 @@
 
     pageContext.setAttribute("webblogName", webblogName);
 
-    UserService userService = UserServiceFactory.getUserService();
-
-    User user = userService.getCurrentUser();
 
     if (user != null) {
 
@@ -44,7 +50,7 @@
 
 %>
 
-<p>Hello, ${fn:escapeXml(user.nickname)}! (You can
+<p align = right>Hello, ${fn:escapeXml(user.nickname)}! (You can
 
 <a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">sign out</a>.)</p>
 
@@ -56,11 +62,12 @@
 
 %>
 
-<p>Hello! Please
+<p align = right>Welcome to the one and only, Kanye West's Blog Page.</p>
 
-<a href="<%= userService.createLoginURL(request.getRequestURI()) %>">sign in</a>
 
-to leave a comment.</p>
+<p align = right>Please <a href="<%= userService.createLoginURL(request.getRequestURI()) %>">sign in</a>
+
+if you would like to leave your 2 cents.</p>
 
 <%
 
@@ -82,7 +89,7 @@ Collections.sort(comments);
 
         %>
 
-        <p>WebBlog '${fn:escapeXml(webblogName)}' has no messages.</p>
+        <p align = right>WebBlog '${fn:escapeXml(webblogName)}' has no messages.</p>
 
         <%
 
@@ -90,7 +97,7 @@ Collections.sort(comments);
 
         %>
 
-        <p>Comments on Yeezus '${fn:escapeXml(webblogName)}'.</p>
+        <p align = right>Comments on Yeezus '${fn:escapeXml(webblogName)}'.</p>
 
         <%
 
@@ -104,7 +111,7 @@ Collections.sort(comments);
 
                 %>
 
-                <p>An anonymous person wrote:</p>
+               <p align = right>An anonymous person wrote:</p>
 
                 <%
 
@@ -116,36 +123,40 @@ Collections.sort(comments);
 
                 %>
 
-                <p><b>${fn:escapeXml(comment_user.nickname)}</b> wrote:</p>
+                <p align = right><b>${fn:escapeXml(comment_user.nickname)}</b> wrote:</p>
 
                 <%
+            }%>
 
-            }
-
-            %>
-
-            <blockquote>${fn:escapeXml(comment_content)}</blockquote>
+            <blockquote align = right>${fn:escapeXml(comment_content)}</blockquote>
 
             <%
 
-        }
+        }%>
 
+	<% if (user != null) {%>
+	<form align = "right" action="/sign" method="post">
+
+          <div><textarea name="content" rows="3" cols="60"></textarea></div>
+
+          <div><input type="submit" value="Submit Comment" /></div>
+
+          <input type="hidden" name="webblogName" value="${fn:escapeXml(webblogName)}"/>
+
+	</form>
+	<%} %>
+
+        <%
     }
 
+ 
+    
 %>
 
  
 
-    <form action="/sign" method="post">
-
-      <div><textarea name="content" rows="3" cols="60"></textarea></div>
-
-      <div><input type="submit" value="Submit Comment" /></div>
-
-      <input type="hidden" name="webblogName" value="${fn:escapeXml(webblogName)}"/>
-
-    </form>
-
+ 
+ 
  
 
   </body>
