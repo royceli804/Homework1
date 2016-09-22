@@ -34,7 +34,7 @@ static {
 
     }
 
-    public void doPost(HttpServletRequest req, HttpServletResponse resp)
+    public void doGet(HttpServletRequest req, HttpServletResponse resp)
 
                 throws IOException {
 
@@ -44,12 +44,28 @@ static {
 
         Subscriber subscriber = new Subscriber(user);
         
-        ofy().save().entity(subscriber).now();
+        List <Subscriber> subscribers = ObjectifyService.ofy().load().type(Subscriber.class).list();
+        
+        if(req.getParameter("sub") != null){
+        	
+        	subscribers.add(subscriber);
+        	ofy().save().entities(subscribers).now();
+        	
+
+        	//Collections.sort(subscribers); 
+        } else if(req.getParameter("unsub") != null) {
+        	
+        	subscribers.remove(subscriber);
+        	ofy().save().entities(subscribers).now();   	
+        }
+        
+        
+        resp.sendRedirect("/webblog.jsp?webblogName=");
         
         //ofy().load().entity(Subscriber).get();
 
         
-        resp.sendRedirect("/webblog.jsp?webblogName=");
+        
         
 
     }

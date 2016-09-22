@@ -25,7 +25,7 @@ User user = userService.getCurrentUser();%>
 <p><h3 align = center><img src="/images/web_banner.jpg" alt="Kanye West">
 </h3></p>
 <p><h3><ul>
-  <li><a href="https://yeezus461.appspot.com/">Home</a></li>
+  <li><a href="https://localhost:8888/">Home</a></li>
   <li><a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Login</a></li>
   <li><a href="http://www.kanyewest.com/">Music</a></li>
   <li><a href="http://localhost:8888/allposts.jsp">All Posts</a></li>

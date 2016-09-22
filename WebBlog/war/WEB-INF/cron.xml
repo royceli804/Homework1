@@ -5,6 +5,6 @@
     <target>beta</target>
     <description>new posts alert</description>
     <timezone>America/Chicago</timezone>
-    <schedule>every day 17:00</schedule>
+    <schedule>every 2 minutes</schedule>
   </cron>
 </cronentries>
